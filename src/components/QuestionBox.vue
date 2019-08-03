@@ -20,6 +20,7 @@
 
       <b-button
         variant="primary"
+        @click="submitAnswer"
       >
         Submit
       </b-button>
@@ -36,11 +37,13 @@ import _ from 'lodash'
 export default {
   props: {
     currentQuestion: Object,
-    next: Function
+    next: Function,
+    increment: Function
   },
   data() {
     return {
       selectedIndex: null,
+      correctIndex: null,
       shuffledAnswers: []
     }
   },
@@ -67,6 +70,16 @@ export default {
     shuffleAnswers() {
       let answers = [...this.currentQuestion.incorrect_answers, this.currentQuestion.correct_answer]
       this.shuffledAnswers = _.shuffle(answers)
+      this.correctIndex = this.shuffledAnswers.indexOf(this.currentQuestion.correct_answer)
+    },
+    submitAnswer() {
+      let isCorrect = false
+
+      if (this.selectedIndex == this.correctIndex) {
+        isCorrect = true
+      }
+
+      this.increment(isCorrect)
     }
   }
 }
