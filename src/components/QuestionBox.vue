@@ -9,7 +9,7 @@
 
       <b-list-group>
         <b-list-group-item
-          v-for="(answer, index) in answers"
+          v-for="(answer, index) in shuffledAnswers"
           :key="index"
           @click.prevent="selectAnswer(index)"
           :class="answerClass(index)"
@@ -47,13 +47,6 @@ export default {
       correctIndex: null,
       shuffledAnswers: [],
       answered: false
-    }
-  },
-  computed: {
-    answers() {
-      let answers = [...this.currentQuestion.incorrect_answers]
-      answers.push(this.currentQuestion.correct_answer)
-      return answers
     }
   },
   watch: {
